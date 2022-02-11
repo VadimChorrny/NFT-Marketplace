@@ -22,5 +22,37 @@ namespace API.Controllers
         {
             return _unitOfWork.CollectionRepository.Get().ToList();
         }
+        public ActionResult Create(Collection collection)
+        {
+            if (collection == null) return BadRequest();
+
+            _unitOfWork.CollectionRepository.Insert(collection);
+            _unitOfWork.Save();
+
+            return Ok("Successfully created new collection!");
+        }
+        [HttpPut]
+        public ActionResult Edit(Collection collection)
+        {
+            if (collection == null) return BadRequest();
+
+            _unitOfWork.CollectionRepository.Update(collection);
+            _unitOfWork.Save();
+
+            return Ok("Successfully updated selected collection!");
+        }
+
+        [HttpDelete("{id:int}")]
+        public ActionResult Delete(int id)
+        {
+            var collectionToRemove = _unitOfWork.CartRepository.GetById(id);
+
+            if (collectionToRemove == null) return BadRequest();
+
+            _unitOfWork.CollectionRepository.Delete(collectionToRemove);
+            _unitOfWork.Save();
+
+            return Ok("Successfully deleted selected collection!");
+        }
     }
 }

@@ -21,5 +21,39 @@ namespace API.Controllers
         {
             return _unitOfWork.CartRepository.Get().ToList();
         }
+        [HttpPost]
+        public ActionResult Create(Cart cart)
+        {
+            if (cart == null) return BadRequest();
+
+            _unitOfWork.CartRepository.Insert(cart);
+            _unitOfWork.Save();
+
+            return Ok("Successfully created new cart!");
+        }
+
+        [HttpPut]
+        public ActionResult Edit(Cart cart)
+        {
+            if(cart == null) return BadRequest();
+
+            _unitOfWork.CartRepository.Update(cart);
+            _unitOfWork.Save();
+
+            return Ok("Successfully updated selected cart!");
+        }
+
+        [HttpDelete("{id:int}")]
+        public ActionResult Delete(int id)
+        {
+            var cartToRemove = _unitOfWork.CartRepository.GetById(id);
+
+            if(cartToRemove == null) return BadRequest();
+
+            _unitOfWork.CartRepository.Delete(cartToRemove);
+            _unitOfWork.Save();
+
+            return Ok("Successfully deleted selected cart");
+        }
     }
 }

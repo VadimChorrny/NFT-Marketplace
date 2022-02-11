@@ -11,7 +11,7 @@ namespace DAL.Entity
     {
         // BASE DATA
         [Key]
-        public int Id { get; set; }
+        public int CartId { get; set; }
         [Required(ErrorMessage = "You must enter a title")]
         public string Title { get; set; }
         public string CreateDate { get; set; } = DateTime.Now.ToString(); // IN FUTURE NEED CHANGE
@@ -19,8 +19,7 @@ namespace DAL.Entity
         public decimal? Price { get; set; }
         
         // ANIMATION
-        public int? AnimationId { get; set; }
-        public virtual ICollection<Animation> Animations { get; set; }
+        public List<Animation> Animations { get; set; }
 
         // CATEGORY
         public int? CategoryId { get; set; }
