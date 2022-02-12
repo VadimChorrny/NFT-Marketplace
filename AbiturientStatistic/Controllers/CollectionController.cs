@@ -20,7 +20,7 @@ namespace API.Controllers
 
         public IEnumerable<Collection> Get()
         {
-            return _unitOfWork.CollectionRepository.Get().ToList();
+            return (IEnumerable<Collection>)_unitOfWork.CollectionRepository.Get();
         }
         public ActionResult Create(Collection collection)
         {

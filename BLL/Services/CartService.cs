@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Services
 {
-    internal class CartService : ICartService
+    public class CartService : ICartService
     {
         private readonly IUnitOfWork _unitOfWork;
         public CartService(IUnitOfWork unitOfWork)

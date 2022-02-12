@@ -19,7 +19,7 @@ namespace API.Controllers
         [HttpGet]
         public IEnumerable<Category> Get()
         {
-            return _unitOfWork.CategoryRepository.Get().ToList();
+            return (IEnumerable<Category>)_unitOfWork.CategoryRepository.Get();
         }
         [HttpPost]
         public ActionResult Create(Category category)

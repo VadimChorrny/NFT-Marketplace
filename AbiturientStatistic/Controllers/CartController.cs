@@ -1,9 +1,11 @@
-﻿using DAL.Entity;
+﻿using BLL.Interfaces;
+using DAL.Entity;
 using DAL.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace API.Controllers
 {
@@ -11,23 +13,27 @@ namespace API.Controllers
     [ApiController]
     public class CartController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
-        public CartController(IUnitOfWork unitOfWork)
+        private readonly ICartService _cartService;
+        public CartController(ICartService cartService)
         {
-            _unitOfWork = unitOfWork;
+            _cartService = cartService;
         }
         [HttpGet]
-        public IEnumerable<Cart> Get()
+        public async Task<IEnumerable<Cart>> Get()
         {
-            return _unitOfWork.CartRepository.Get().ToList();
+            return await _cartService.Get();
+        }
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<Cart>> Get(int id)
+        {
+            return await _cartService.GetCartByIdAsync(id);
         }
         [HttpPost]
         public ActionResult Create(Cart cart)
         {
             if (cart == null) return BadRequest();
 
-            _unitOfWork.CartRepository.Insert(cart);
-            _unitOfWork.Save();
+            _cartService.Create(cart);
 
             return Ok("Successfully created new cart!");
         }
@@ -37,8 +43,7 @@ namespace API.Controllers
         {
             if(cart == null) return BadRequest();
 
-            _unitOfWork.CartRepository.Update(cart);
-            _unitOfWork.Save();
+            _cartService.Edit(cart);
 
             return Ok("Successfully updated selected cart!");
         }
@@ -46,12 +51,9 @@ namespace API.Controllers
         [HttpDelete("{id:int}")]
         public ActionResult Delete(int id)
         {
-            var cartToRemove = _unitOfWork.CartRepository.GetById(id);
+            if(id == 0) return BadRequest();
 
-            if(cartToRemove == null) return BadRequest();
-
-            _unitOfWork.CartRepository.Delete(cartToRemove);
-            _unitOfWork.Save();
+            _cartService.Delete(id);
 
             return Ok("Successfully deleted selected cart");
         }

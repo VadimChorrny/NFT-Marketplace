@@ -1,3 +1,5 @@
+using BLL.Interfaces;
+using BLL.Services;
 using DAL.Entity;
 using DAL.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -32,34 +34,13 @@ namespace AbiturientStatistic
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = Configuration["Jwt:Issuer"],
-                        ValidAudience = Configuration["Jwt:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
-                    };
-                });
-
-            services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
-                      .AllowAnyMethod()
-                      .AllowAnyHeader()
-                      .AllowCredentials()
-                .Build());
-            });
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("API")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<ICartService,CartService>();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -86,7 +67,6 @@ namespace AbiturientStatistic
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
-            app.UseCors("CorsPolicy");
 
             app.UseAuthentication();
 
