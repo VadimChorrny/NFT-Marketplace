@@ -1,9 +1,11 @@
-﻿using BLL.Interfaces;
+﻿using BLL.Exceptions;
+using BLL.Interfaces;
 using DAL.Entity;
 using DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -43,6 +45,7 @@ namespace BLL.Services
 
         public async Task<Cart> GetCartByIdAsync(int id)
         {
+            if(id < 0) throw new HttpException($"Invalid id!", HttpStatusCode.BadRequest);
             var cart = _unitOfWork.CartRepository.GetById(id);
             if(cart == null) return null;
             return await cart;
