@@ -1,3 +1,4 @@
+using API.Middlewares;
 using BLL.Interfaces;
 using BLL.Services;
 using DAL.Entity;
@@ -44,7 +45,7 @@ namespace AbiturientStatistic
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AbiturientStatistic", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
         }
 
@@ -59,6 +60,8 @@ namespace AbiturientStatistic
             }
 
             app.UseHttpsRedirection();
+
+            app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseRouting();
 

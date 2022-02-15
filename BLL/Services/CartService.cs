@@ -20,12 +20,14 @@ namespace BLL.Services
         }
         public async void Create(Cart cart)
         {
+            if(cart == null) throw new HttpException($"Error with create cart!", HttpStatusCode.NotFound);
             await _unitOfWork.CartRepository.Insert(cart);
             _unitOfWork.Save();
         }
 
         public async void Delete(int id)
         {
+            if (id < 0) throw new HttpException($"Invalid id!", HttpStatusCode.BadRequest);
             var cart = _unitOfWork.CartRepository.GetById(id);
             if(cart != null)
                 await _unitOfWork.CartRepository.Delete(cart);
@@ -34,6 +36,7 @@ namespace BLL.Services
 
         public void Edit(Cart cart)
         {
+            if (cart == null) throw new HttpException($"Error with edit cart!", HttpStatusCode.NotFound);
             _unitOfWork.CartRepository.Update(cart);
             _unitOfWork.Save();
         }
@@ -47,7 +50,7 @@ namespace BLL.Services
         {
             if(id < 0) throw new HttpException($"Invalid id!", HttpStatusCode.BadRequest);
             var cart = _unitOfWork.CartRepository.GetById(id);
-            if(cart == null) return null;
+            if(cart == null) throw new HttpException($"Cart Not Found!", HttpStatusCode.NotFound);
             return await cart;
         }
     }
