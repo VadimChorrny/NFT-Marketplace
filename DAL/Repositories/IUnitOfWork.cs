@@ -13,6 +13,7 @@ namespace DAL.Repositories
         Repository<Cart> CartRepository { get; }
         Repository<Category> CategoryRepository { get; }
         Repository<Collection> CollectionRepository { get; }
+        Repository<Blog> BlogRepository { get; }
         void Save();
     }
 }

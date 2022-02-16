@@ -15,6 +15,7 @@ namespace DAL.Repositories
         private Repository<Cart> cartRepository;
         private Repository<Category> categoryRepository;
         private Repository<Collection> collectionRepository;
+        private Repository<Blog> blogRepository;
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -24,12 +25,14 @@ namespace DAL.Repositories
             cartRepository = new Repository<Cart>(context);
             categoryRepository = new Repository<Category>(context);
             collectionRepository = new Repository<Collection>(context);
+            blogRepository = new Repository<Blog>(context);
         }
 
         public Repository<Animation> AnimationRepository => animationRepository;
         public Repository<Cart> CartRepository => cartRepository;
         public Repository<Category> CategoryRepository => categoryRepository;
         public Repository<Collection> CollectionRepository => collectionRepository;
+        public Repository<Blog> BlogRepository => blogRepository;
 
         public void Save()
         {

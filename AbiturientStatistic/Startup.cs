@@ -40,6 +40,7 @@ namespace AbiturientStatistic
                     Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("API")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ICartService,CartService>();
+            services.AddScoped<IBlogService,BlogService>();
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddControllers();

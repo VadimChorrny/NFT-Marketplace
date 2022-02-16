@@ -15,5 +15,6 @@ namespace DAL.Entity
         public DbSet<Animation> Animations { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Collection> Collections { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
     }
 }
