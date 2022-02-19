@@ -1,4 +1,5 @@
-﻿using BLL.Interfaces;
+﻿using BLL.DTOs;
+using BLL.Interfaces;
 using DAL.Entity;
 using DAL.Repositories;
 using Microsoft.AspNetCore.Http;
@@ -23,18 +24,18 @@ namespace API.Controllers
         }
         [HttpGet]
         [ResponseCache(Duration = 30)]
-        public async Task<IEnumerable<Cart>> Get()
+        public async Task<IEnumerable<CartDTO>> Get()
         {
             return await _cartService.Get();
         }
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Cart>> Get(int id)
+        public async Task<ActionResult<CartDTO>> Get(int id)
         {
             _logger.LogInformation($"Got a cart with id {id}");
             return await _cartService.GetCartByIdAsync(id);
         }
         [HttpPost]
-        public ActionResult Create(Cart cart)
+        public ActionResult CreateCart(CartDTO cart)
         {
             if (cart == null) return BadRequest();
 
@@ -45,7 +46,7 @@ namespace API.Controllers
             return Ok("Successfully created new cart!");
         }
         [HttpPut]
-        public ActionResult Edit(Cart cart)
+        public ActionResult Edit(CartDTO cart)
         {
             if(cart == null) return BadRequest();
 

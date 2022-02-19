@@ -1,4 +1,6 @@
-﻿using BLL.Exceptions;
+﻿using AutoMapper;
+using BLL.DTOs;
+using BLL.Exceptions;
 using BLL.Interfaces;
 using DAL.Entity;
 using DAL.Repositories;
@@ -14,14 +16,16 @@ namespace BLL.Services
     public class BlogService : IBlogService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public BlogService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public BlogService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
-        public async Task CreateAsync(Blog blog)
+        public async Task CreateAsync(BlogDTO blog)
         {
             if (blog == null) throw new HttpException($"Error with create blog!", HttpStatusCode.NotFound);
-            await _unitOfWork.BlogRepository.Insert(blog);
+            await _unitOfWork.BlogRepository.Insert(_mapper.Map<Blog>(blog));
             _unitOfWork.Save();
         }
         public async Task DeleteAsync(int id)
@@ -32,22 +36,26 @@ namespace BLL.Services
                 await _unitOfWork.BlogRepository.Delete(blog);
             _unitOfWork.Save();
         }
-        public void Edit(Blog blog)
+        public void Edit(BlogDTO blog)
         {
             if (blog == null) throw new HttpException($"Error with edit blog!", HttpStatusCode.NotFound);
-            _unitOfWork.BlogRepository.Update(blog);
+            _unitOfWork.BlogRepository.Update(_mapper.Map<Blog>(blog));
             _unitOfWork.Save();
         }
-        public async Task<IEnumerable<Blog>> Get()
+        public async Task<IEnumerable<BlogDTO>> Get()
         {
-            return await _unitOfWork.BlogRepository.Get();
+            return _mapper.Map<IEnumerable<BlogDTO>>(await _unitOfWork.BlogRepository.Get());
         }
-        public async Task<Blog> GetBlogByIdAsync(int id)
+        public async Task<BlogDTO> GetBlogByIdAsync(int id)
         {
             if (id < 0) throw new HttpException($"Invalid id!", HttpStatusCode.BadRequest);
             var blog = _unitOfWork.BlogRepository.GetById(id);
             if (blog == null) throw new HttpException($"Cart Not Found!", HttpStatusCode.NotFound);
-            return await blog;
+            return _mapper.Map<BlogDTO>(await blog);
+        }
+        public async Task<IEnumerable<BlogPreviewDTO>> GetBlogByTitle()
+        {
+            return _mapper.Map<IEnumerable<BlogPreviewDTO>>(await _unitOfWork.BlogRepository.Get());
         }
     }
 }

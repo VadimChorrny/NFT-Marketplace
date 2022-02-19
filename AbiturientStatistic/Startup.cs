@@ -1,4 +1,5 @@
 using API.Middlewares;
+using BLL;
 using BLL.Interfaces;
 using BLL.Services;
 using DAL.Entity;
@@ -38,9 +39,12 @@ namespace AbiturientStatistic
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("API")));
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<ICartService,CartService>();
-            services.AddScoped<IBlogService,BlogService>();
+            
+
+            services.AddFluentValidation();
+            services.AddCustomServices();
+            services.AddAutoMapper();
+
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddControllers();
