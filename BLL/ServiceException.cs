@@ -22,6 +22,7 @@ namespace BLL
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<IBlogService, BlogService>();
+            services.AddScoped<IAnimationService, AnimationService>();
         }
 
         public static void AddAutoMapper(this IServiceCollection services)
@@ -31,8 +32,8 @@ namespace BLL
                 mc.CreateMap<Cart, CartDTO>().ReverseMap();
                 mc.CreateMap<Blog, BlogDTO>().ReverseMap();
                 mc.CreateMap<Blog, BlogPreviewDTO>().ReverseMap();
+                mc.CreateMap<Animation, AnimationDTO>().ReverseMap();
             });
-
             IMapper mapper = configures.CreateMapper();
             services.AddSingleton(mapper);
         }

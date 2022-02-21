@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLL.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +9,10 @@ namespace BLL.Interfaces
 {
     public interface IAnimationService
     {
-        Task<IEnumerable<BlogDTO>> Get();
-        Task<BlogDTO> GetBlogByIdAsync(int id);
-        Task<IEnumerable<BlogPreviewDTO>> GetBlogByTitle();
-        Task CreateAsync(BlogDTO blog);
-        void Edit(BlogDTO blog);
+        Task<IEnumerable<AnimationDTO>> Get();
+        Task<AnimationDTO> GetAnimationByIdAsync(int id);
+        Task CreateAsync(AnimationDTO animation);
+        void Edit(AnimationDTO animation);
         Task DeleteAsync(int id);
     }
 }
