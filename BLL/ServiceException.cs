@@ -1,17 +1,12 @@
 ﻿using AutoMapper;
-using BLL.DTOs;
-using BLL.Interfaces;
-using BLL.Services;
-using BLL.Validations;
-using DAL.Entity;
-using DAL.Repositories;
+using Core.DTOs;
+using Core.Interfaces;
+using Core.Services;
+using Core.Validations;
+using Core.Entity;
+using Core.Repositories;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL
 {
@@ -19,7 +14,6 @@ namespace BLL
     {
         public static void AddCustomServices(this IServiceCollection services)
         {
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<IBlogService, BlogService>();
             services.AddScoped<IAnimationService, AnimationService>();

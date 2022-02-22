@@ -1,8 +1,8 @@
-﻿using BLL.DTOs;
+﻿using Core.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BLL.Interfaces
+namespace Core.Interfaces
 {
     public interface ICartService
     {

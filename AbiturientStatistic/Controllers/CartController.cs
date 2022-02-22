@@ -1,7 +1,7 @@
-﻿using BLL.DTOs;
-using BLL.Interfaces;
-using DAL.Entity;
-using DAL.Repositories;
+﻿using Core.DTOs;
+using Core.Interfaces;
+using Core.Entity;
+using Core.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

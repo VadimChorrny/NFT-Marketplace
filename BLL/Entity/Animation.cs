@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Entity
+namespace Core.Entity
 {
     public class Animation
     {

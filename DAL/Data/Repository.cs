@@ -1,4 +1,5 @@
-﻿using DAL.Entity;
+﻿using Core.Repositories;
+using Infrastructure.Entity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Repositories
+namespace Infrastructure.Data
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
@@ -84,6 +85,7 @@ namespace DAL.Repositories
                 context.Entry(entityToUpdate).State = EntityState.Modified;
             });
         }
+        public async Task SaveChangesAsync() => await context.SaveChangesAsync();
 
     }
 }

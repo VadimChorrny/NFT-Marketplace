@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.DTOs
+namespace Core.Entity
 {
-    public class BlogPreviewDTO
+    public class User
     {
-        public int BlogId { get; set; }
-        public string Name { get; set; }
+        public int Id { get; set; }
+        public string Nickname { get; set; }
+        
     }
 }

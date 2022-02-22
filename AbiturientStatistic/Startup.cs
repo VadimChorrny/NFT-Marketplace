@@ -1,26 +1,13 @@
 using API.Middlewares;
 using BLL;
-using BLL.Interfaces;
-using BLL.Services;
-using DAL.Entity;
-using DAL.Repositories;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AbiturientStatistic
 {
@@ -36,14 +23,12 @@ namespace AbiturientStatistic
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("API")));
-            
-
+            services.AddDbContext(Configuration.GetConnectionString("DefaultConnection"));
             services.AddFluentValidation();
             services.AddCustomServices();
             services.AddAutoMapper();
+
+            services.AddRepository();
 
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);

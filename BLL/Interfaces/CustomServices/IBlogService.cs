@@ -1,12 +1,12 @@
-﻿using BLL.DTOs;
-using DAL.Entity;
+﻿using Core.DTOs;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL.Interfaces
+namespace Core.Interfaces
 {
     public interface IBlogService
     {

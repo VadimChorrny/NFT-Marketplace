@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Repositories
+namespace Core.Repositories
 {
     public interface IRepository<TEntity> where TEntity : class
     {
@@ -18,5 +17,6 @@ namespace DAL.Repositories
         Task Delete(object id);
         void Delete(TEntity entityToDelete);
         void Update(TEntity entityToUpdate);
+        Task SaveChangesAsync();
     }
 }

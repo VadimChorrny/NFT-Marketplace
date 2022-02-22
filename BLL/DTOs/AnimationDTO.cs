@@ -1,11 +1,11 @@
-﻿using DAL.Entity;
+﻿using Core.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL.DTOs
+namespace Core.DTOs
 {
     public class AnimationDTO
     {

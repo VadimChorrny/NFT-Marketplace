@@ -5,9 +5,9 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "AbiturientStatistic\API.csproj", "{D4A541AC-6F85-4D90-901F-7887FFDD7924}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{CCFF65C5-815A-4E69-B768-40310AC29D15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "DAL\Infrastructure.csproj", "{CCFF65C5-815A-4E69-B768-40310AC29D15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{267BD1C3-C775-44F8-BD81-E836BFF0C44C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "BLL\Core.csproj", "{267BD1C3-C775-44F8-BD81-E836BFF0C44C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
